@@ -21,3 +21,13 @@
 * 不同版本的产品分发均可于[下载区](http://bitbucket.org/CrazyBoyFeng/agentx1/downloads)得到。
 * 与项目相关的简单问题可查阅[文档区](http://bitbucket.org/CrazyBoyFeng/agentx1/wiki)处理。
 * 如有意见、建议、疑问等欢迎在[讨论区](http://bitbucket.org/CrazyBoyFeng/agentx1/issues)反馈。
+
+编译 (Openwrt)：
+===================================
+### 将Openwrt-SDK下载到本地并部署完毕后进入SDK目录，然后执行如下命令：
+        cd package
+        git clone https://github.com/Droid-MAX/agentx1.git
+        cd ..
+        make menuconfig # 选择 Utilities/Agentx1
+        make package/agentx1/OpenWRT/compile V=99
+### 最终你将会在SDK目录下的bin目录里找到编译好的ipk软件包！
