@@ -28,6 +28,6 @@
         cd package
         git clone https://github.com/Droid-MAX/agentx1.git
         cd ..
-        make menuconfig # 选择 Utilities/Agentx1
+        make menuconfig # select Utilities/Agentx1
         make package/agentx1/OpenWRT/compile V=99
 ### 最终你将会在SDK目录下的bin目录里找到编译好的ipk软件包！
