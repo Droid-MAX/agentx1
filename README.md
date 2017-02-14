@@ -30,6 +30,6 @@ ipk软件包的编译：
         git clone https://github.com/Droid-MAX/agentx1.git
         cd ..
         make menuconfig # 选择 Utilities/Agentx1
-        make package/agentx1/OpenWRT/compile V=99
+        make package/agentx1/OpenWRT/compile V=99 STRIP=/bin/true
 ```
 ### 最终你将会在SDK目录下的bin目录里找到编译好的ipk软件包！
