@@ -38,37 +38,39 @@ endef
 
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
-SRC=/etc/rc.local
-BAK=/etc/rc.local.bak
+
 install(){
-	sed -i '/exit/i\/etc/init.d/agentx1 restart' $SRC
+	sed -i '/exit/i\/etc/init.d/agentx1 restart' /etc/rc.local
 }
+
 main(){
-	if [ ! -f $BAK ]; then
-		cp $SRC $BAK
+	if [ ! -f /etc/rc.local.bak ]; then
+		cp /etc/rc.local /etc/rc.local.bak
 		install
 	else
 		install
 	fi
 }
+
 main
 endef
 
 define Package/$(PKG_NAME)/prerm
 #!/bin/sh
-SRC=/etc/rc.local
-BAK=/etc/rc.local.bak
+
 restore(){
-	cp -f $BAK $SRC
-	rm -rf $BAK
+	cp -f /etc/rc.local.bak /etc/rc.local
+	rm -rf /etc/rc.local.bak
 }
+
 main(){
-	if [ ! -f $BAK ]; then
-		sed -i '/agentx1/d' $SRC
+	if [ ! -f /etc/rc.local.bak ]; then
+		sed -i '/agentx1/d' /etc/rc.local
 	else
 		restore
 	fi
 }
+
 main
 endef
 
