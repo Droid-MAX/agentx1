@@ -3,7 +3,6 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=Agentx1
 PKG_VERSION:=5
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
-
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=libpthread
 
@@ -24,7 +23,7 @@ endef
 
 define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
-	cp -r ../* $(PKG_BUILD_DIR)
+	cp -r src/* $(PKG_BUILD_DIR)
 endef
 
 define Package/$(PKG_NAME)/install
