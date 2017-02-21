@@ -27,6 +27,7 @@ define Build/Prepare
 endef
 
 define Package/$(PKG_NAME)/install
+	cp -r root/* $(1)
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/agentx1 $(1)/usr/bin
 endef
