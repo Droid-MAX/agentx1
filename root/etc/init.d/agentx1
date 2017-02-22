@@ -5,83 +5,83 @@ PIDFILE=/tmp/agentx1.pid
 OUTFILE=/dev/null
 
 run(){
-   agentx1 -L br-lan -W eth0.2 -p LOCAL -a AFTER >> $OUTFILE 2>&1 & echo $! > $PIDFILE
+	agentx1 -L br-lan -W eth0.2 -p LOCAL -a AFTER >> $OUTFILE 2>&1 & echo $! > $PIDFILE
 }
 
 init(){
-   if [ -f $PIDFILE ]; then
-      PID=`cat $PIDFILE`
-   fi
+	if [ -f $PIDFILE ]; then
+		PID=`cat $PIDFILE`
+	fi
 }
 
 check(){
-   if [ $PID -eq 0 ]; then
-      return 1
-   else
-      kill -0 $PID 2>/dev/null
-   fi
+	if [ $PID -eq 0 ]; then
+		return 1
+	else
+		kill -0 $PID 2>/dev/null
+	fi
 }
 
 start(){
-   init
-   check
-   if [ $? -eq 0 ]; then
-      echo "Agentx1 is run!" && exit 1
-   else
-      run
-      echo "Start Agentx1!" && exit 0
-   fi
-}
-
-restart(){
-   init
-   check
-   if [ $? -eq 0 ]; then
-      kill -9 $PID > /dev/null 2>&1
-   fi
-   run
-   echo "Restart Agentx1!" && exit 0
+	init
+	check
+	if [ $? -eq 0 ]; then
+		echo "Agentx1 is run!" && exit 1
+	else
+		run
+		echo "Start Agentx1!" && exit 0
+	fi
 }
 
 stop(){
-   init
-   check
-   if [ $? ]; then
-      kill -9 $PID > /dev/null 2>&1
-      echo "Agentx1 is stop!" && exit 0
-   else
-      echo "Agentx1 is not run!" && exit 1
-   fi
+	init
+	check
+	if [ $? ]; then
+		kill -9 $PID > /dev/null 2>&1
+		echo "Agentx1 is stop!" && exit 0
+	else
+		echo "Agentx1 is not run!" && exit 1
+	fi
+}
+
+restart(){
+	init
+	check
+	if [ $? -eq 0 ]; then
+		kill -9 $PID > /dev/null 2>&1
+	fi
+	run
+	echo "Restart Agentx1!" && exit 0
 }
 
 status(){
-   init
-   check
-   if [ $? -eq 0 ]; then
-      echo "Agentx1 is run!" && exit 0
-   else
-      echo "Agentx1 is not run!" && exit 1
-   fi
+	init
+	check
+	if [ $? -eq 0 ]; then
+		echo "Agentx1 is run!" && exit 0
+	else
+		echo "Agentx1 is not run!" && exit 1
+	fi
 }
 
 case "$1" in
-   start)
-      $1
-      exit 0
-      ;;
-   restart)
-      $1
-      exit 0
-      ;;
-   stop)
-      $1
-      exit 0
-      ;;
-   status)
-      $1
-      exit 0
-      ;;
-   *)
-      echo 'Usage: {start|stop|restart|status}'
-      ;;
+	start)
+		$1
+		exit 0
+		;;
+	stop)
+		$1
+		exit 0
+		;;
+	restart)
+		$1
+		exit 0
+		;;
+	status)
+		$1
+		exit 0
+		;;
+	*)
+		echo 'Usage: {start|stop|restart|status}'
+		;;
 esac
