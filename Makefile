@@ -26,10 +26,6 @@ define Build/Prepare
 	cp -r src/* $(PKG_BUILD_DIR)
 endef
 
-define Package/$(PKG_NAME)/conffiles
-/etc/rc.local
-endef
-
 define Package/$(PKG_NAME)/install
 	cp -r root/* $(1)
 	$(INSTALL_DIR) $(1)/usr/bin
