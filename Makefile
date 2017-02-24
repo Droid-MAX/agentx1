@@ -12,7 +12,6 @@ define Package/$(PKG_NAME)
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=Agentx1
-	URL:=https://github.com/Droid-MAX/agentx1
 	MAINTAINER:=CrazyBoyFeng<https://bitbucket.org/CrazyBoyFeng/agentx1>
 	DEPENDS:=+libpthread
 endef
