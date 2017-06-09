@@ -1,7 +1,7 @@
 #!/bin/sh
 
 PID=0
-PIDFILE=/tmp/agentx1.pid
+PIDFILE=/var/run/agentx1.pid
 OUTFILE=/dev/null
 
 run(){
@@ -18,7 +18,7 @@ check(){
 	if [ $PID -eq 0 ]; then
 		return 1
 	else
-		kill -0 $PID 2>/dev/null
+		kill -0 $PID 2> $OUTFILE
 	fi
 }
 
@@ -37,7 +37,7 @@ stop(){
 	init
 	check
 	if [ $? ]; then
-		kill -9 $PID > /dev/null 2>&1
+		kill -9 $PID > $OUTFILE 2>&1
 		echo "Agentx1 is stop!" && exit 0
 	else
 		echo "Agentx1 is not run!" && exit 1
@@ -48,7 +48,7 @@ restart(){
 	init
 	check
 	if [ $? -eq 0 ]; then
-		kill -9 $PID > /dev/null 2>&1
+		kill -9 $PID > $OUTFILE 2>&1
 	fi
 	run
 	echo "Restart Agentx1!" && exit 0
