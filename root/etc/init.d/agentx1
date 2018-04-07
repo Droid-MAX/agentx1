@@ -2,66 +2,13 @@
 
 START=90
 STOP=90
-PID=0
-PIDFILE=/var/run/agentx1.pid
-OUTFILE=/dev/null
+USE_PROCD=1
+PROG=/usr/bin/agentx1
 
-run(){
-	agentx1 -L br-lan -W eth0.2 -p LOCAL -a AFTER >> $OUTFILE 2>&1 & echo $! > $PIDFILE
-}
-
-init(){
-	if [ -f $PIDFILE ]; then
-		PID=`cat $PIDFILE`
-	fi
-}
-
-check(){
-	if [ $PID -eq 0 ]; then
-		return 1
-	else
-		kill -0 $PID 2> $OUTFILE
-	fi
-}
-
-start(){
-	init
-	check
-	if [ $? -eq 0 ]; then
-		echo "Agentx1 is Running!" && exit 1
-	else
-		run
-		echo "Start Agentx1!" && exit 0
-	fi
-}
-
-stop(){
-	init
-	check
-	if [ $? ]; then
-		kill -9 $PID > $OUTFILE 2>&1
-		echo "Stop Agentx1!" && exit 0
-	else
-		echo "Agentx1 is Stopped!" && exit 1
-	fi
-}
-
-restart(){
-	init
-	check
-	if [ $? -eq 0 ]; then
-		kill -9 $PID > $OUTFILE 2>&1
-	fi
-	run
-	echo "Restart Agentx1!" && exit 0
-}
-
-status(){
-	init
-	check
-	if [ $? -eq 0 ]; then
-		echo "Agentx1 is Running!" && exit 0
-	else
-		echo "Agentx1 is Stopped!" && exit 1
-	fi
+start_service(){
+	ARGS=$(cat /etc/agentx1.conf)
+	procd_open_instance
+	procd_set_param command $PROG $ARGS
+	procd_set_param respawn
+	procd_close_instance
 }
