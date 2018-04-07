@@ -30,14 +30,4 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/agentx1 $(1)/usr/bin
 endef
 
-define Package/$(PKG_NAME)/postinst
-#!/bin/sh
-/etc/init.d/agentx1 enable
-endef
-
-define Package/$(PKG_NAME)/prerm
-#!/bin/sh
-/etc/init.d/agentx1 disable
-endef
-
 $(eval $(call BuildPackage,$(PKG_NAME)))
