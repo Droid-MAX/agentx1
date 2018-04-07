@@ -65,25 +65,3 @@ status(){
 		echo "Agentx1 is Stopped!" && exit 1
 	fi
 }
-
-case "$1" in
-	start)
-		$1
-		exit 0
-		;;
-	stop)
-		$1
-		exit 0
-		;;
-	restart)
-		$1
-		exit 0
-		;;
-	status)
-		$1
-		exit 0
-		;;
-	*)
-		echo 'Usage: {start|stop|restart|status}'
-		;;
-esac
