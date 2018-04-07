@@ -3,12 +3,11 @@
 START=90
 STOP=90
 USE_PROCD=1
-PROG=/usr/bin/agentx1
 
 start_service(){
 	ARGS=$(cat /etc/agentx1.conf)
 	procd_open_instance
-	procd_set_param command $PROG $ARGS
+	procd_set_param command /usr/bin/agentx1 $ARGS
 	procd_set_param respawn
 	procd_close_instance
 }
